@@ -23,9 +23,7 @@ var b;
      } ).catch(err => console.log(err));
 }
 var getPlacesFunc = async function getPlaces(query: string) {
-  console.log(b);
   const e = 'Bearer '+b;
-  console.log(b);
   var res = await fetchh('https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT,CITY&keyword='+query, {
     method: 'GET',
     headers: {
