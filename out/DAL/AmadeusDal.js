@@ -26,18 +26,14 @@ var initApiKeyDictionary = function initApdiKeyDictionary() {
             })
         }).then(result => result.json()).
             then(jsonformat => {
-            //  console.log(jsonformat); 
             global.key = jsonformat['access_token'];
             b = jsonformat['access_token'];
-            //   b = jwt.sign({}, jsonformat['access_token'], { expiresIn: '1m'})}
         }).catch(err => console.log(err));
     });
 };
 var getPlacesFunc = function getPlaces(query) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(b);
         const e = 'Bearer ' + b;
-        console.log(b);
         var res = yield fetchh('https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT,CITY&keyword=' + query, {
             method: 'GET',
             headers: {
@@ -46,7 +42,6 @@ var getPlacesFunc = function getPlaces(query) {
             }
         });
         var c = yield res.json();
-        console.log(c);
         return parseLocation(c);
     });
 };
@@ -63,6 +58,22 @@ function parseLocation(locations) {
     });
     return newPlaces;
 }
+var getFlightsFunc = function getFlights(body) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const e = 'Bearer ' + b;
+        var res = yield fetchh('https://test.api.amadeus.com/v2/shopping/flight-offers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': e
+            },
+            body
+        });
+        var response = yield res.json();
+        return response;
+    });
+};
 exports.initApiKeyDictionary = initApiKeyDictionary;
 exports.getPlaces = getPlacesFunc;
+exports.getFlights = getFlightsFunc;
 //# sourceMappingURL=AmadeusDal.js.map

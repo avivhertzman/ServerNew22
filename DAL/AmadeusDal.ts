@@ -22,6 +22,7 @@ var b;
      b = jsonformat['access_token'];
      } ).catch(err => console.log(err));
 }
+
 var getPlacesFunc = async function getPlaces(query: string) {
   const e = 'Bearer '+b;
   var res = await fetchh('https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT,CITY&keyword='+query, {
@@ -50,5 +51,20 @@ function parseLocation(locations) {
 
 }
 
+var getFlightsFunc = async function getFlights(body: string) {
+const e = 'Bearer '+b;
+  var res = await fetchh('https://test.api.amadeus.com/v2/shopping/flight-offers', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': e
+      },
+    body
+  });
+  var response = await res.json();
+  return response;
+}
+
  exports.initApiKeyDictionary = initApiKeyDictionary;
  exports.getPlaces = getPlacesFunc;
+ exports.getFlights = getFlightsFunc;

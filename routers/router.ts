@@ -1,6 +1,8 @@
 var express1 = require('express');
 var AmadeusController = require('../Controller/AmadeusController');
+var bodyParser = require('body-parser');
 var router = express1.Router();
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // Home page route.
 router.get('/', function (req: any, res:any) {
@@ -9,6 +11,8 @@ router.get('/', function (req: any, res:any) {
   res.send('Wiki home page');
 })
 
+
 router.get('/GetPlaces', AmadeusController.getPlaces);
+router.post('/GetFlights', urlencodedParser, AmadeusController.getFlights);
 
 module.exports = router;
