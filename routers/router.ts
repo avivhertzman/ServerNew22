@@ -1,5 +1,6 @@
 var express1 = require('express');
 var AmadeusController = require('../Controller/AmadeusController');
+var UserController = require('../Controller/UserController');
 var bodyParser = require('body-parser');
 var router = express1.Router();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -14,5 +15,7 @@ router.get('/', function (req: any, res:any) {
 
 router.get('/GetPlaces', AmadeusController.getPlaces);
 router.post('/GetFlights', urlencodedParser, AmadeusController.getFlights);
+router.post('/ValidateUser', urlencodedParser, UserController.validateUser);
+router.post('/RegisterUser', urlencodedParser, UserController.registerUser);
 
 module.exports = router;
